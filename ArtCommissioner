@@ -1,0 +1,74 @@
+from tkinter import *
+
+# Create the main window
+root = Tk()
+root.title("ArtCommissioner")
+root.geometry("500x500")
+
+# Function to open the Find an Artist screen
+def find_artist_screen():
+    # Hide the main window
+    root.withdraw()
+
+    # Create the Find an Artist window
+    find_artist_window = Toplevel()
+    find_artist_window.title("Find an Artist")
+    find_artist_window.geometry("500x400")
+
+    # Add code for the Find an Artist screen here
+
+# Function to open the Become an Artist screen
+def become_artist_screen():
+    # Hide the main window
+    root.withdraw()
+
+    # Create the Become an Artist window
+    become_artist_window = Toplevel()
+    become_artist_window.title("Become an Artist")
+    become_artist_window.geometry("500x400")
+
+    # Add code for the Become an Artist screen here
+
+# Function to open the Commission Request screen
+def commission_screen():
+    # Hide the main window
+    root.withdraw()
+
+    # Create the Commission Request window
+    commission_window = Toplevel()
+    commission_window.title("Commission Request")
+    commission_window.geometry("500x400")
+
+    # Add code for the Commission Request screen here
+
+# Function to open the Commission Request screen
+def account_screen():
+    # Hide the main window
+    root.withdraw()
+
+    # Create the Account Management window
+    account_window = Toplevel()
+    account_window.title("Account Management")
+    account_window.geometry("500x400")
+
+    # Add code for the Account Management screen here
+
+# Create a welcome message
+welcome_label = Label(root, text="Welcome to ArtCommissioner!", font=("Arial", 24))
+welcome_label.pack(pady=50)
+
+# Create buttons to navigate to other screens
+find_artist_button = Button(root, text="Find an Artist", font=("Arial", 18), width=20, command=find_artist_screen)
+find_artist_button.pack(pady=20)
+
+become_artist_button = Button(root, text="Become an Artist", font=("Arial", 18), width=20, command=become_artist_screen)
+become_artist_button.pack(pady=20)
+
+commission_button = Button(root, text="Commission Request", font=("Arial", 18), width=20, command=commission_screen)
+commission_button.pack(pady=20)
+
+account_button = Button(root, text="Account Management", font=("Arial", 18), width=20, command=account_screen)
+account_button.pack(pady=20)
+
+# Start the main loop
+root.mainloop()
