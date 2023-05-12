@@ -1,11 +1,87 @@
+"""
+ArtCommissioner User Manual
+
+Welcome to ArtCommissioner, a platform for artists and art enthusiasts! This application allows you to find artists, request commissions, and even become an artist yourself. Here's a guide on how to use the application:
+
+1. Main Window:
+   - The main window is the starting point of the application. It provides an overview of the available options.
+
+2. Find an Artist:
+   - Click on the "Find an Artist" button to search for artists.
+   - Enter a search query in the provided text field and click the "Search" button.
+   - The search results will be displayed in the listbox.
+   - To view an artist's page, select the artist from the list and click the "Open Artist's Page" button.
+   - To return to the main window, click the "Back" button.
+
+3. Become an Artist:
+   - Click on the "Become an Artist" button to apply as an artist.
+   - Fill in your name, bio, and genre in the respective fields.
+   - Select and add images showcasing your artwork.
+   - Click the "Submit" button to submit your artist application.
+   - To clear the fields, click the "Clear" button.
+   - To return to the main window, click the "Back" button.
+
+4. Commission Request:
+   - Click on the "Commission Request" button to request a commission.
+   - Enter your name, email, and commission request details.
+   - Click the "Submit" button to submit your commission request.
+   - To clear the fields, click the "Clear" button.
+   - To return to the main window, click the "Back" button.
+
+5. Account Management:
+   - Click on the "Account Management" button to manage your account.
+   - Update your account details (name, email) and click the "Save Changes" button to save them.
+   - To return to the main window, click the "Back" button.
+
+Note: This application is for demonstration purposes only. Functionality such as saving data to a database is not implemented.
+
+Feel free to explore the features of ArtCommissioner and enjoy connecting with artists and art lovers!
+
+"""
+"""
+ArtCommissioner - Source Code Documentation
+
+This document provides an overview of the source code for the ArtCommissioner application. It describes the purpose and functionality of each section.
+
+1. Importing Required Libraries:
+   - The necessary libraries, such as tkinter and filedialog, are imported to support the graphical user interface (GUI) and file operations.
+
+2. Screen Functions:
+   - find_artist_screen(): Creates the "Find an Artist" screen with search functionality and artist listing.
+   - become_artist_screen(): Creates the "Become an Artist" screen for users to apply as artists and showcase their work.
+   - commission_screen(): Creates the "Commission Request" screen for users to request commissions.
+   - account_screen(): Creates the "Account Management" screen for users to manage their account details.
+
+3. Helper Functions:
+   - return_to_main(): Function to return to the main window from any secondary window.
+
+4. Main Window:
+   - The main window of the application is created, displaying a welcome message and providing buttons for different functionalities.
+
+5. User Manual:
+   - A user manual is provided at the top of the code, explaining how to use the application and its various features.
+
+6. Event Handling:
+   - Callback functions are defined for handling button clicks and form submissions.
+   - These functions retrieve user input, perform necessary operations (e.g., data processing, printing), and update the GUI accordingly.
+
+7. Execution:
+   - The main loop is started to run the application and display the GUI.
+
+Note: This documentation provides an overview of the code structure and functionality. For detailed code explanations, refer to the comments within the source code.
+
+"""
+
 from tkinter import *
+from tkinter import filedialog
+from tkinter import ttk
 
 # Create the main window
 root = Tk()
 root.title("ArtCommissioner")
-root.geometry("500x500")
+root.geometry("500x600")
 
-# Function to open the Find an Artist screen
+# Add code for the Find an Artist screen here
 def find_artist_screen():
     # Hide the main window
     root.withdraw()
@@ -13,11 +89,84 @@ def find_artist_screen():
     # Create the Find an Artist window
     find_artist_window = Toplevel()
     find_artist_window.title("Find an Artist")
-    find_artist_window.geometry("500x400")
+    find_artist_window.geometry("500x550")
 
-    # Add code for the Find an Artist screen here
+    # Function to search for artists
+    def search_artists():
+        # Get the search query from the entry widget
+        query = search_entry.get()
 
-# Function to open the Become an Artist screen
+        # Perform the search logic here
+        # Example: Display search results in a listbox
+        results = ["Artist 1", "Artist 2", "Artist 3"]  # Replace with your search logic
+
+        # Clear the previous search results (if any)
+        results_listbox.delete(0, END)
+
+        # Insert the new search results into the listbox
+        for artist in results:
+            results_listbox.insert(END, artist)
+
+    # Function to open the artist's page
+    def open_artist_page():
+        # Get the selected artist from the listbox
+        selected_artist = results_listbox.get(ANCHOR)
+
+        # Hide the Find an Artist window
+        find_artist_window.withdraw()
+
+        # Create the Artist's Page window
+        artist_page_window = Toplevel()
+        artist_page_window.title("Artist's Page")
+        artist_page_window.geometry("500x400")
+
+        # Add widgets and functionality specific to the Artist's Page screen
+        # Example: Display the selected artist's name
+        artist_label = Label(artist_page_window, text=selected_artist, font=("Arial", 24))
+        artist_label.pack(pady=50)
+
+        # Create a button to go back to the Find an Artist window
+        back_button = Button(artist_page_window, text="Back", font=("Arial", 18), command=lambda: return_to_find_artist(artist_page_window))
+        back_button.pack(pady=20)
+
+    # Function to return to the main window
+    def return_to_main_from_search():
+        find_artist_window.destroy()
+        root.deiconify()
+
+    # Create a label for the search entry
+    search_label = Label(find_artist_window, text="Search:", font=("Arial", 18))
+    search_label.pack(pady=20)
+
+    # Create an entry widget for the search query
+    search_entry = Entry(find_artist_window, font=("Arial", 14))
+    search_entry.pack(pady=10)
+
+    # Create a button to initiate the search
+    search_button = Button(find_artist_window, text="Search", font=("Arial", 14), command=search_artists)
+    search_button.pack(pady=10)
+
+    # Create a listbox to display search results
+    results_listbox = Listbox(find_artist_window, font=("Arial", 14), width=40, height=10)
+    results_listbox.pack(pady=20)
+
+    # Create a button to open the artist's page
+    open_button = Button(find_artist_window, text="Open", font=("Arial", 14), command=open_artist_page)
+    open_button.pack(pady=10)
+
+    # Create a button to go back to the main window
+    main_button = Button(find_artist_window, text="Back to Main", font=("Arial", 18), command=return_to_main_from_search)
+    main_button.pack(pady=20)
+
+# Function to return to the Find an Artist window
+def return_to_find_artist(window):
+    window.destroy()
+    root.deiconify()
+
+# Add code for the Become an Artist screen here
+from tkinter import *
+from tkinter import filedialog
+
 def become_artist_screen():
     # Hide the main window
     root.withdraw()
@@ -25,11 +174,94 @@ def become_artist_screen():
     # Create the Become an Artist window
     become_artist_window = Toplevel()
     become_artist_window.title("Become an Artist")
-    become_artist_window.geometry("500x400")
+    become_artist_window.geometry("500x700")
 
-    # Add code for the Become an Artist screen here
+    # Function to submit the artist application
+    def submit_application():
+        # Get the entered information from the entry widgets
+        name = name_entry.get()
+        bio = bio_text.get("1.0", END)
+        genre = genre_entry.get()
+        # Get the paths of selected images
+        images = image_listbox.get(0, END)
 
-# Function to open the Commission Request screen
+        # Process the application data here
+        # Example: Print the entered information
+        print("Name:", name)
+        print("Bio:", bio)
+        print("Genre:", genre)
+        print("Images:", images)
+
+        # Optionally, perform further processing or submission logic
+
+        # Clear the entry fields
+        name_entry.delete(0, END)
+        bio_text.delete("1.0", END)
+        genre_entry.delete(0, END)
+        image_listbox.delete(0, END)
+
+        # Show a success message or perform other actions
+
+    # Create a label for the name entry
+    name_label = Label(become_artist_window, text="Name:", font=("Arial", 18))
+    name_label.pack(pady=10)
+
+    # Create an entry widget for the name
+    name_entry = Entry(become_artist_window, font=("Arial", 14))
+    name_entry.pack(pady=5)
+
+    # Create a label for the bio entry
+    bio_label = Label(become_artist_window, text="Bio:", font=("Arial", 18))
+    bio_label.pack(pady=10)
+
+    # Create a text widget for the bio
+    bio_text = Text(become_artist_window, font=("Arial", 12), height=4, width=30)
+    bio_text.pack(pady=5)
+
+    # Create a label for the genre entry
+    genre_label = Label(become_artist_window, text="Genre:", font=("Arial", 18))
+    genre_label.pack(pady=10)
+
+    # Create an entry widget for the genre
+    genre_entry = Entry(become_artist_window, font=("Arial", 14))
+    genre_entry.pack(pady=5)
+
+    # Create a label for the image selection
+    image_label = Label(become_artist_window, text="Images:", font=("Arial", 18))
+    image_label.pack(pady=10)
+
+    # Create a listbox to display selected images
+    image_listbox = Listbox(become_artist_window, font=("Arial", 12), width=30, height=4)
+    image_listbox.pack(pady=5)
+
+    # Function to add an image to the listbox
+    def add_image():
+        # Open a file dialog to select an image file
+        filename = filedialog.askopenfilename(filetypes=[("Image Files", "*.jpg *.jpeg *.png")])
+
+        # Add the selected image file to the listbox
+        if filename:
+            image_listbox.insert(END, filename)
+
+    # Create a button to add images
+    add_image_button = Button(become_artist_window, text="Add Image", font=("Arial", 14), command=add_image)
+    add_image_button.pack(pady=5)
+
+    # Create a button to submit the artist application
+    submit_button = Button(become_artist_window, text="Submit", font=("Arial", 18), command=submit_application)
+    submit_button.pack(pady=20)
+
+    # Create a button to go back to the main window
+    back_button = Button(become_artist_window, text="Back", font=("Arial", 18),
+                         command=lambda: return_to_main(become_artist_window))
+    back_button.pack(pady=20)
+
+# Function to return to the main window
+def return_to_main(window):
+    window.destroy()
+    root.deiconify()
+
+# Add code for the Commission Request screen here
 def commission_screen():
     # Hide the main window
     root.withdraw()
@@ -37,11 +269,71 @@ def commission_screen():
     # Create the Commission Request window
     commission_window = Toplevel()
     commission_window.title("Commission Request")
-    commission_window.geometry("500x400")
+    commission_window.geometry("500x600")
+    # Function to submit the commission request
+    def submit_request():
+        # Get the entered information from the entry widgets
+        name = name_entry.get()
+        email = email_entry.get()
+        request = request_text.get("1.0", END)
 
-    # Add code for the Commission Request screen here
+        # Process the commission request data here
+        # Example: Print the entered information
+        print("Name:", name)
+        print("Email:", email)
+        print("Request:", request)
 
-# Function to open the Commission Request screen
+        # Optionally, perform further processing or submission logic
+
+        # Clear the entry fields
+        name_entry.delete(0, END)
+        email_entry.delete(0, END)
+        request_text.delete("1.0", END)
+
+        # Show a success message or perform other actions
+
+    # Create a label for the commission request
+    commission_label = Label(commission_window, text="Commission Request", font=("Arial", 24))
+    commission_label.pack(pady=20)
+
+    # Create a label for the name entry
+    name_label = Label(commission_window, text="Name:", font=("Arial", 18))
+    name_label.pack(pady=10)
+
+    # Create an entry widget for the name
+    name_entry = Entry(commission_window, font=("Arial", 14))
+    name_entry.pack(pady=5)
+
+    # Create a label for the email entry
+    email_label = Label(commission_window, text="Email:", font=("Arial", 18))
+    email_label.pack(pady=10)
+
+    # Create an entry widget for the email
+    email_entry = Entry(commission_window, font=("Arial", 14))
+    email_entry.pack(pady=5)
+
+    # Create a label for the commission request entry
+    request_label = Label(commission_window, text="Request:", font=("Arial", 18))
+    request_label.pack(pady=10)
+
+    # Create a text widget for the commission request
+    request_text = Text(commission_window, font=("Arial", 12), height=6, width=30)
+    request_text.pack(pady=5)
+
+    # Create a button to submit the commission request
+    submit_button = Button(commission_window, text="Submit", font=("Arial", 18), command=submit_request)
+    submit_button.pack(pady=20)
+
+    # Create a button to go back to the main window
+    back_button = Button(commission_window, text="Back", font=("Arial", 18), command=lambda: return_to_main(commission_window))
+    back_button.pack(pady=20)
+
+# Function to return to the main window
+def return_to_main(window):
+    window.destroy()
+    root.deiconify()
+
+# Add code for the Account Management screen here
 def account_screen():
     # Hide the main window
     root.withdraw()
@@ -49,13 +341,65 @@ def account_screen():
     # Create the Account Management window
     account_window = Toplevel()
     account_window.title("Account Management")
-    account_window.geometry("500x400")
+    account_window.geometry("500x500")
 
-    # Add code for the Account Management screen here
+    # Function to save the account changes
+    def save_changes():
+        # Process and save the account changes here
+        # Example: Print the entered information
+        print("Account Name:", name_entry.get())
+        print("Email:", email_entry.get())
+
+        # Optionally, perform further processing or save to database
+
+        # Show a success message or perform other actions
+
+    # Create a label for the Account Management
+    account_label = Label(account_window, text="Account Management", font=("Arial", 24))
+    account_label.pack(pady=20)
+
+    # Create a label for the name entry
+    name_label = Label(account_window, text="Name:", font=("Arial", 18))
+    name_label.pack(pady=10)
+
+    # Create an entry widget for the name
+    name_entry = Entry(account_window, font=("Arial", 14))
+    name_entry.pack(pady=5)
+
+    # Create a label for the email entry
+    email_label = Label(account_window, text="Email:", font=("Arial", 18))
+    email_label.pack(pady=10)
+
+    # Create an entry widget for the email
+    email_entry = Entry(account_window, font=("Arial", 14))
+    email_entry.pack(pady=5)
+
+    # Create a button to save the account changes
+    save_button = Button(account_window, text="Save Changes", font=("Arial", 18), command=save_changes)
+    save_button.pack(pady=20)
+
+    # Function to go back to the main window
+    def return_to_main(window):
+        # Destroy the current window
+        window.destroy()
+
+        # Show the main window
+        root.deiconify()
+
+    # Create a button to go back to the main window
+    back_button = Button(account_window, text="Back", font=("Arial", 18), command=lambda: return_to_main(account_window))
+    back_button.pack(pady=20)
+
 
 # Create a welcome message
 welcome_label = Label(root, text="Welcome to ArtCommissioner!", font=("Arial", 24))
 welcome_label.pack(pady=50)
+
+welcome_message1= Label(root, text="Use this program to find other artists,", font=("Arial", 12))
+welcome_message1.pack(pady=5)
+
+welcome_message2= Label(root, text="request a commission, or even become an artist yourself!", font=("Arial", 12))
+welcome_message2.pack(pady=5)
 
 # Create buttons to navigate to other screens
 find_artist_button = Button(root, text="Find an Artist", font=("Arial", 18), width=20, command=find_artist_screen)
